@@ -1,0 +1,27 @@
+{
+    "cSpell.ignoreRegExpList": ["\\b[0-9A-Z_]+\\b"],
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
+    "cmake.configureEnvironment": { "CMAKE_EXPORT_COMPILE_COMMANDS": "on" },
+    
+    "cortex-debug.gdbPath.windows": "C:/arm/arm-none-eabi/bin/arm-none-eabi-gdb.exe",
+    "cortex-debug.stutilPath.windows": "C:/arm/stlink-1.8.0/bin/st-util.exe",
+    "cortex-debug.JLinkGDBServerPath.windows": "C:/PROGRA~1/SEGGER/JLink_V918/JLinkGDBServerCL.exe",
+    "cortex-debug.openocdPath.windows": "C:/OpenOCD-20250613-0.12.0/bin/openocd.exe",
+
+    "cmake.sourceDirectory": "C:/Projects/opticus/bsp_stm32f4",
+    "cmake.useCMakePresets": "always",
+    //"cmake.options.statusBarVisibility": "visible",
+    "cmake.buildBeforeRun": true,
+    "cmake.configureOnOpen": false,
+
+    "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
+    //"device": "STM32F103C8T6",
+    "device": "STM32F407VG",
+    "svdFile" : "${workspaceRoot}/STM32F407.svd",
+    "targetFamily": "stm32f4x",
+    "jlink-masterid": 0,
+    //"jlink-masterid": "Master",
+    "jlink-slaveid": "Slave"
+
+}

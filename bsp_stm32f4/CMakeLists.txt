@@ -63,6 +63,25 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-
+    rdimon
     # Add user defined libraries
+)
+
+set_source_files_properties(
+    ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/syscalls.c
+    PROPERTIES
+    HEADER_FILE_ONLY TRUE 
+)
+
+target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -specs=rdimon.specs -lrdimon )
+
+# Генерация .bin и .hex файлов из .elf
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+    COMMAND ${CMAKE_OBJCOPY} -O ihex   $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex
+    COMMAND ${CMAKE_COMMAND} -E echo "Generated files:"
+    COMMAND ${CMAKE_COMMAND} -E echo "  BIN: ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin"
+    COMMAND ${CMAKE_COMMAND} -E echo "  HEX: ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex"
+    COMMENT "Converting ELF to BIN and HEX"
 )
