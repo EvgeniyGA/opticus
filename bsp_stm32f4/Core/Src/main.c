@@ -23,12 +23,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-extern void initialise_monitor_handles( void );
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -66,7 +66,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  initialise_monitor_handles();
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -75,7 +75,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -94,22 +94,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  char buffer[100];
-  FILE * fd = fopen ("C:\\Data\\data.csv", "w+" );
-  int n = 2, SensorValue = 555;
-  if(fd != NULL){
-    sprintf ( buffer, "%i,%.1f\n", n, (double)SensorValue);
-    fwrite ( buffer, sizeof(char), strlen( buffer ), fd );
-  }
-  fclose(fd);
+  setup();
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(led_status_GPIO_Port, led_status_Pin);
-    HAL_Delay(100);
-    printf("hello\n\r"); 
+	loop();
   }
   /* USER CODE END 3 */
 }
