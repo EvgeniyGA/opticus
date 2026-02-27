@@ -94,6 +94,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  char buffer[100];
+  FILE * fd = fopen ("C:\\Data\\data.csv", "w+" );
+  int n = 2, SensorValue = 555;
+  if(fd != NULL){
+    sprintf ( buffer, "%i,%.1f\n", n, (double)SensorValue);
+    fwrite ( buffer, sizeof(char), strlen( buffer ), fd );
+  }
+  fclose(fd);
   while (1)
   {
     /* USER CODE END WHILE */

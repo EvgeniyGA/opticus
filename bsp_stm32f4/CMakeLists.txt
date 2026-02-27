@@ -73,7 +73,7 @@ set_source_files_properties(
     HEADER_FILE_ONLY TRUE 
 )
 
-target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -specs=rdimon.specs -lrdimon )
+target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -specs=rdimon.specs -lrdimon -u _printf_float)
 
 # Генерация .bin и .hex файлов из .elf
 add_custom_command(
