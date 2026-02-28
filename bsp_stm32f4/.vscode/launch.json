@@ -33,7 +33,7 @@
             "device" : "${config:device}",
             //"serialNumber": "${config:jlink-masterid}",
             "preLaunchTask" : "CMake: build",
-        "preLaunchCommands" : [ "monitor arm semihosting enable" ],
+        //"preLaunchCommands" : [ "monitor arm semihosting enable" ],
             "preRestartCommands" : [ "load", "enable breakpoint", "monitor reset" ],        
             "runToEntryPoint" : "main",        
             //"showDevDebugOutput" : "raw",
@@ -81,12 +81,12 @@
             //"showDevDebugOutput" : "raw",
             "svdFile" : "${config:svdFile}",
             "liveWatch": { "enabled": true, "samplesPerSecond": 2 },
-            "rttConfig":
-            {
-                "enabled": true,
-                "address": "auto",
-                "decoders": [ { "label": "", "port": 0, "type": "console" } ]
-            }
+            // "rttConfig":
+            // {
+            //     "enabled": true,
+            //     "address": "auto",
+            //     "decoders": [ { "label": "", "port": 0, "type": "console" } ]
+            // }
         },
         {
             "name" : "Debug Slave (gdb/jlink)",

@@ -94,13 +94,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setup();
+  //setup();
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	loop();
+	  loop();
   }
   /* USER CODE END 3 */
 }

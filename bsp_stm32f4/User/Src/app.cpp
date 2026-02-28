@@ -5,7 +5,7 @@
 extern "C" void initialise_monitor_handles( void );
 
 void init( void ){
-	initialise_monitor_handles();
+	//initialise_monitor_handles();
 }
 
 void setup( void ){
@@ -21,6 +21,6 @@ void setup( void ){
 
 void loop( void ){
 	HAL_GPIO_TogglePin(led_status_GPIO_Port, led_status_Pin);
-	HAL_Delay(100);
-	printf("hello\n\r");
+	HAL_Delay(1000);
+	//printf("hello\n\r");
 }
