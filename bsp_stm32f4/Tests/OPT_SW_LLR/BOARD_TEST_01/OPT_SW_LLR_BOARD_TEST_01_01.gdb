@@ -1,8 +1,9 @@
 # LLR IDs: OPT_SW_LLR_BOARD_TEST_01_01
 
 # Подключаемся и делаем сброс.
-connect_mcu1_only
-#run_mcu 1
+#connect_mcu1_only
+target remote localhost:2331
+monitor reset
 
 # Значение $result: true - тест пройден, false - не пройден.
 set $result = false

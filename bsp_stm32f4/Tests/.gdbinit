@@ -28,7 +28,7 @@ define connect_mcu1_only
     end
 
     # Запускаем MCU2.
-    #run_mcu 2
+    run_mcu 2
 
     # Подключаемся к MCU1.
     target remote localhost:2331
