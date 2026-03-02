@@ -81,12 +81,12 @@
             //"showDevDebugOutput" : "raw",
             "svdFile" : "${config:svdFile}",
             "liveWatch": { "enabled": true, "samplesPerSecond": 2 },
-            // "rttConfig":
-            // {
-            //     "enabled": true,
-            //     "address": "auto",
-            //     "decoders": [ { "label": "", "port": 0, "type": "console" } ]
-            // }
+            "rttConfig":
+            {
+                "enabled": true,
+                "address": "auto",
+                "decoders": [ { "label": "", "port": 0, "type": "console" } ]
+            }
         },
         {
             "name" : "Debug Slave (gdb/jlink)",

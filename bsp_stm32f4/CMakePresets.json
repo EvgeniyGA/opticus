@@ -38,6 +38,27 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "MinSizeRel"
             }
+        },
+        {
+            "name": "debug-test-unity",
+            "displayName": "Debug-Test (unity)",
+            "description": "Конфигурация Debug (unity)",
+            "inherits": "Debug",
+            "cacheVariables": { "ENABLE_UNIT_TESTING": "ON", "TEST_FRAMEWORK": "Unity" }
+        },
+        {
+            "name": "debug-test-gdb",
+            "displayName": "Debug-Test (gdb)",
+            "description": "Конфигурация Debug (gdb)",
+            "inherits": "Debug",
+            "cacheVariables": { "ENABLE_UNIT_TESTING": "ON", "TEST_SCRIPT_TYPE": "GDB" }
+        },
+        {
+            "name": "debug-test-gdb-py", 
+            "displayName": "Debug-Test (gdb-py)",
+            "description": "Конфигурация Debug (gdb-py)",
+            "inherits": "Debug",
+            "cacheVariables": { "ENABLE_UNIT_TESTING": "ON", "TEST_SCRIPT_TYPE": "GDB-PY" }
         }
     ],
     "buildPresets": [
@@ -57,5 +78,22 @@
             "name": "MinSizeRel",
             "configurePreset": "MinSizeRel"
         }
-    ]
+    ],
+    "testPresets": [
+    {
+        "name": "Test Debug (unity)",
+        "description": "Test Debug using Unity",
+        "configurePreset": "debug-test-unity"
+    },
+    {
+        "name": "Test Debug (gdb)",
+        "description": "Test Debug using GDB",
+        "configurePreset": "debug-test-gdb"
+    },
+    {
+        "name": "Test Debug (gdb-py)",
+        "description": "Test Debug using GDB-PY",
+        "configurePreset": "debug-test-gdb-py"
+    }
+  ]
 }

@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "SEGGER_RTT.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -56,6 +56,8 @@ void Error_Handler(void);
 void init( void );
 void setup( void );
 void loop( void );
+
+void MX_ADCx_Init(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

@@ -12,6 +12,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+set(MCU STM32F407VGT)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -40,6 +41,7 @@ add_executable(${CMAKE_PROJECT_NAME})
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
 add_subdirectory(user)
+add_subdirectory(RTT)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -64,6 +66,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
+    RTT::RTT
     rdimon
     # Add user defined libraries
 )
@@ -76,6 +79,8 @@ set_source_files_properties(
 
 target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -specs=rdimon.specs -lrdimon -u _printf_float)
 
+target_include_directories(RTT PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 # Генерация .bin и .hex файлов из .elf
 add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
@@ -86,3 +91,35 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E echo "  HEX: ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex"
     COMMENT "Converting ELF to BIN and HEX"
 )
+
+if ( ENABLE_UNIT_TESTING )
+    
+    include (CTest)
+    
+    message(STATUS "ENABLE_UNIT_TESTING is ON")
+
+    if (BUILD_TESTING)
+        message(STATUS "BUILD_TESTING is ON")
+    endif()
+
+    target_compile_definitions(${PROJECT_NAME} PRIVATE ENABLE_UNIT_TESTING)
+
+    if ( TEST_FRAMEWORK STREQUAL Unity )
+        target_compile_definitions(${PROJECT_NAME} PRIVATE USE_TEST_FRAMEWORK_UNITY)
+
+        #add_subdirectory(RTT)
+        add_subdirectory(Unity)
+
+        set(TEST_EXECUTABLE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.elf")
+    else()
+        # Внимание! Перед тестированием необходимо загрузить тестируемую прошивку в мк вручную.
+        set(TEST_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/build/debug/${PROJECT_NAME}.elf")
+        set(GDB_TEST_RUNNER "${CMAKE_CURRENT_SOURCE_DIR}/Tests/test_runner.cmd")
+    endif()
+
+    add_subdirectory(Tests/OPT_SW_LLR/BOARD_TEST_01)
+    #add_subdirectory(Tests/BBC_SW_LLR/BOARD_TEST_02)
+    #add_subdirectory(Tests/BBC_SW_LLR/BOARD_TEST_03)
+    #add_subdirectory(Tests/BBC_SW_LLR/BOARD_TEST_10)
+
+endif()

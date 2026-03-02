@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Unity/unity.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,6 +55,16 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#ifdef ENABLE_UNIT_TESTING
+void setUp (void) {} /* Is run before every test, put unit init calls here. */
+void tearDown (void) {} /* Is run after every test, put unit clean-up calls here. */
+#endif
+
+void MX_ADCx_Init(void){
+  HAL_GPIO_TogglePin(led_status_GPIO_Port, led_status_Pin);
+	HAL_Delay(1000);
+  volatile int a = 123;
+}
 
 /* USER CODE END 0 */
 
@@ -76,6 +86,26 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   init();
+#ifdef USE_TEST_FRAMEWORK_UNITY
+
+  extern void OPT_SW_LLR_BOARD_TEST_01_01( void );
+  //extern void BBC_SW_LLR_BOARD_TEST_02_01( void );
+
+  UNITY_BEGIN();
+
+  RUN_TEST( OPT_SW_LLR_BOARD_TEST_01_01 );
+  //RUN_TEST( BBC_SW_LLR_BOARD_TEST_02_01 );
+
+  int result = UNITY_END();
+
+  SEGGER_RTT_WriteString( 0, ( result == HAL_OK ) ? "--- PASSED ---\n" : "--- FAILED ---\n" );
+
+  // Останавливаем JRun.
+  SEGGER_RTT_WriteString( 0, "*STOP*\n" );
+
+  return HAL_OK;
+
+#endif
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -89,7 +119,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  MX_ADCx_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
